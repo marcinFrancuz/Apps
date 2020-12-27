@@ -1,0 +1,734 @@
+import java.util.Scanner;
+
+public class MainCarShowroom {
+    public static void main (String[] args){
+        vehiclePurchase();
+    }
+
+    public static void vehiclePurchase (){
+        NewCarShowroom opel = new NewCarShowroom();
+
+        opel.setUserMoney();
+        opel.showStandardCars();
+        opel.chooseCar();
+        opel.chooseParameter();
+    }
+}
+
+class NewCarShowroom implements Operations {
+
+    Scanner scanner = new Scanner(System.in);
+    private double userMoney = 0;
+    int choosenEngineType = 0;
+    int choosenBodyType = 0;
+    int choosenColour = 0;
+    int choosenUpholstery = 0;
+    int carNumber;
+    int finalPrice = 0;
+
+    @Override
+    public void presentCar() {
+        System.out.println("Wybrany pojazd:");
+        switch(carNumber){
+            case 1:
+                System.out.println(StandardCars.CORSA.getCarName());
+                finalPrice += StandardCars.CORSA.getCarPrice();
+                break;
+            case 2:
+                System.out.println(StandardCars.ASTRA.getCarName());
+                finalPrice += StandardCars.ASTRA.getCarPrice();
+                break;
+            case 3:
+                System.out.println(StandardCars.OMEGA.getCarName());
+                finalPrice += StandardCars.OMEGA.getCarPrice();
+                break;
+            case 4:
+                System.out.println(StandardCars.INSIGNIA.getCarName());
+                finalPrice += StandardCars.INSIGNIA.getCarPrice();
+                break;
+        }
+        switch (choosenEngineType) {
+            case 2:
+                System.out.println(CarEngineType.DIESEL.getEngineType());
+                finalPrice += CarEngineType.DIESEL.getEnginePrice();
+                break;
+            case 3:
+                System.out.println(CarEngineType.HYBRID.getEngineType());
+                finalPrice += CarEngineType.HYBRID.getEnginePrice();
+                break;
+            default:
+                System.out.println(CarEngineType.GASOLINE.getEngineType());
+                finalPrice += CarEngineType.GASOLINE.getEnginePrice();
+        }
+        switch (choosenBodyType){
+            case 2:
+                System.out.println(CarBodyType.HATCHBACK.getCarBodyType());
+                finalPrice += CarBodyType.HATCHBACK.getCarBodyPrice();
+                break;
+            case 3:
+                System.out.println(CarBodyType.KOMBI.getCarBodyType());
+                finalPrice += CarBodyType.KOMBI.getCarBodyPrice();
+                break;
+            case 4:
+                System.out.println(CarBodyType.PICK_UP.getCarBodyType());
+                finalPrice += CarBodyType.PICK_UP.getCarBodyPrice();
+                break;
+            default:
+                System.out.println(CarBodyType.SEDAN.getCarBodyType());
+                finalPrice += CarBodyType.SEDAN.getCarBodyPrice();
+
+        }
+        switch (choosenColour) {
+            case 2:
+                System.out.println(CarColour.BLACK.getColourName());
+                finalPrice += CarColour.BLACK.getColourPrice();
+                break;
+            case 3:
+                System.out.println(CarColour.WHITE.getColourName());
+                finalPrice += CarColour.WHITE.getColourPrice();
+                break;
+            case 4:
+                System.out.println(CarColour.BLUE.getColourName());
+                finalPrice += CarColour.BLUE.getColourPrice();
+                break;
+            case 5:
+                System.out.println(CarColour.GOLD.getColourName());
+                finalPrice += CarColour.GOLD.getColourPrice();
+                break;
+            default:
+                System.out.println(CarColour.SILVER.getColourName());
+                finalPrice += CarColour.SILVER.getColourPrice();
+        }
+        switch (choosenUpholstery) {
+            case 2:
+                System.out.println(CarUpholstery.LATHER.getUpholsteryName());
+                finalPrice += CarUpholstery.LATHER.getUpholsteryPrice();
+                break;
+            case 3:
+                System.out.println(CarUpholstery.QUILTED_LATHER.getUpholsteryName());
+                finalPrice += CarUpholstery.QUILTED_LATHER.getUpholsteryPrice();
+                break;
+            default:
+                System.out.println(CarUpholstery.VELOR.getUpholsteryName());
+                finalPrice += CarUpholstery.VELOR.getUpholsteryPrice();
+        }
+        System.out.println("Cena końcowa: " + finalPrice + " PLN");
+    }
+    
+    @Override
+    public double setUserMoney() {
+        System.out.println("Podaj zasobność Twojego portfela...");
+        userMoney = scanner.nextDouble();
+        System.out.println("Stan Twojego portfela: " + userMoney + "zł");
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
+        return userMoney;
+    }
+
+
+    @Override
+    public void showStandardCars() {
+        if (userMoney < StandardCars.CORSA.getCarPrice()) {
+            System.out.println("Niestety, stan Twojego portfela jest niewystarczający do zakupu pojazdu w naszym salonie.");
+            System.out.println("Zapraszamy, gdy zdobędziesz dodatkowe środki na zakup auta lub do zakupu pojazdu używanego.");
+            System.exit(1);
+        } else if (userMoney >= StandardCars.CORSA.getCarPrice() && userMoney < StandardCars.ASTRA.getCarPrice()) {
+            System.out.println("Dostępne pojazdy:");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("1. " + StandardCars.CORSA.getCarName() + ", wersja Standard");
+        } else if (userMoney >= StandardCars.ASTRA.getCarPrice() && userMoney < StandardCars.OMEGA.getCarPrice()) {
+            System.out.println("Dostępne pojazdy:");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("1. " + StandardCars.CORSA.getCarName() + ", wersja Standard");
+            System.out.println("2. " + StandardCars.ASTRA.getCarName() + ", wersja Standard");
+        } else if (userMoney >= StandardCars.OMEGA.getCarPrice() && userMoney < StandardCars.INSIGNIA.getCarPrice()) {
+            System.out.println("Dostępne pojazdy:");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("1. " + StandardCars.CORSA.getCarName() + ", wersja Standard");
+            System.out.println("2. " + StandardCars.ASTRA.getCarName() + ", wersja Standard");
+            System.out.println("3. " + StandardCars.OMEGA.getCarName() + ", wersja Standard");
+        } else if (userMoney >= StandardCars.INSIGNIA.getCarPrice()) {
+            System.out.println("Dostępne pojazdy:");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("1. " + StandardCars.CORSA.getCarName() + ", wersja Standard, cena: " + StandardCars.CORSA.getCarPrice() + "PLN");
+            System.out.println("2. " + StandardCars.ASTRA.getCarName() + ", wersja Standard, cena: " + StandardCars.ASTRA.getCarPrice() + "PLN");
+            System.out.println("3. " + StandardCars.OMEGA.getCarName() + ", wersja Standard, cena: " + StandardCars.OMEGA.getCarPrice() + "PLN");
+            System.out.println("4. " + StandardCars.INSIGNIA.getCarName() + ", wersja Standard, cena: " + StandardCars.INSIGNIA.getCarPrice() + "PLN");
+        }
+    }
+
+
+    @Override
+    public void chooseCar() {
+        System.out.println();
+        System.out.println("Wybier pojazd i naciśnij przycisk odpowiadający jego pozycji...");
+        carNumber = scanner.nextInt();
+        switch (carNumber) {
+            case 1:
+                System.out.println("Wybrano " + StandardCars.CORSA.getCarName() + ", wersja Standard");
+                userMoney = userMoney - StandardCars.CORSA.getCarPrice();
+                System.out.println("Pozostałe środki: " + userMoney + "zł");
+                break;
+            case 2:
+                System.out.println("Wybrano " + StandardCars.ASTRA.getCarName() + ", wersja Standard");
+                userMoney = userMoney - StandardCars.ASTRA.getCarPrice();
+                System.out.println("Pozostałe środki: " + userMoney + "zł");
+                break;
+            case 3:
+                System.out.println("Wybrano " + StandardCars.OMEGA.getCarName() + ", wersja Standard");
+                userMoney = userMoney - StandardCars.OMEGA.getCarPrice();
+                System.out.println("Pozostałe środki: " + userMoney + "zł");
+                break;
+            case 4:
+                System.out.println("Wybrano " + StandardCars.INSIGNIA.getCarName() + ", wersja Standard");
+                userMoney = userMoney - StandardCars.INSIGNIA.getCarPrice();
+                System.out.println("Pozostałe środki: " + userMoney + "zł");
+                break;
+        }
+    }
+
+    
+    @Override
+    public void chooseParameter() {
+
+        System.out.println();
+        System.out.println("Wybierz parametr, który chcesz zmienić:");
+        System.out.println("1. Silnik");
+        System.out.println("2. Nadwozie");
+        System.out.println("3. Kolor");
+        System.out.println("4. Tapicerka");
+        System.out.println("5. Zakończ wybór parametrów pojazdu");
+        int carParameter;
+        carParameter = scanner.nextInt();
+        if (carParameter == 1 || carParameter == 2 || carParameter == 3 || carParameter == 4) {
+            switch (carParameter) {
+                case 1:
+                    chooseEngine();
+                    break;
+                case 2:
+                    chooseBodyType();
+                    break;
+                case 3:
+                    chooseColour();
+                    break;
+                case 4:
+                    chooseUpholstery();
+                    break;
+            }
+        } else {
+            presentCar();
+        }
+    }
+
+    
+    @Override
+    public int chooseEngine() {
+
+        if (choosenEngineType == 0) {
+            System.out.println("Wybierz silnik:");
+            System.out.println("1. " + CarEngineType.GASOLINE.getEngineType() + ", cena: " + CarEngineType.GASOLINE.getEnginePrice());
+            System.out.println("2. " + CarEngineType.DIESEL.getEngineType() + ", cena: " + CarEngineType.DIESEL.getEnginePrice());
+            System.out.println("3. " + CarEngineType.HYBRID.getEngineType() + ", cena: " + CarEngineType.HYBRID.getEnginePrice());
+            System.out.println("4. Powrót do wyboru parametru");
+            choosenEngineType = scanner.nextInt();      //obsłużyć wyjątek "InputMismatchException" przy wprowadzeniu znaków innych niż cyfry
+            switch (choosenEngineType) {
+                case 1:
+                    System.out.println("Wybrano " + CarEngineType.GASOLINE.getEngineType());
+                    userMoney = userMoney - CarEngineType.GASOLINE.getEnginePrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarEngineType.DIESEL.getEngineType());
+                    userMoney = userMoney - CarEngineType.DIESEL.getEnginePrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarEngineType.HYBRID.getEngineType());
+                    userMoney = userMoney - CarEngineType.HYBRID.getEnginePrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+            }
+            chooseParameter();
+
+        } else if (choosenEngineType >= 1 && choosenEngineType <= 3){
+            switch (choosenEngineType){
+                case 1:
+                    userMoney = userMoney + CarEngineType.GASOLINE.getEnginePrice();
+                    break;
+                case 2:
+                    userMoney = userMoney + CarEngineType.DIESEL.getEnginePrice();
+                    break;
+                case 3:
+                    userMoney = userMoney + CarEngineType.HYBRID.getEnginePrice();
+                    break;
+            }
+
+            System.out.println("Wybierz silnik:");
+            System.out.println("1. " + CarEngineType.GASOLINE.getEngineType() + ", cena: " + CarEngineType.GASOLINE.getEnginePrice());
+            System.out.println("2. " + CarEngineType.DIESEL.getEngineType() + ", cena: " + CarEngineType.DIESEL.getEnginePrice());
+            System.out.println("3. " + CarEngineType.HYBRID.getEngineType() + ", cena: " + CarEngineType.HYBRID.getEnginePrice());
+            System.out.println("4. Powrót do wyboru parametru");
+            choosenEngineType = scanner.nextInt();
+
+            switch (choosenEngineType) {
+                case 1:
+                    System.out.println("Wybrano " + CarEngineType.GASOLINE.getEngineType());
+                    userMoney = userMoney - CarEngineType.GASOLINE.getEnginePrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarEngineType.DIESEL.getEngineType());
+                    userMoney = userMoney - CarEngineType.DIESEL.getEnginePrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarEngineType.HYBRID.getEngineType());
+                    userMoney = userMoney - CarEngineType.HYBRID.getEnginePrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+            }
+            chooseParameter();
+        } else { //w przypadku wybrania cyfry spoza zakresu program ją zapamietywał --> obejście tego problemu
+            choosenEngineType = 0;
+            chooseEngine();
+        }
+        return choosenEngineType;
+    }
+    
+
+    @Override
+    public int chooseBodyType () {
+        if (choosenBodyType == 0 ){
+            System.out.println("Wybierz rodzaj nadwozia:");
+            System.out.println("1. " + CarBodyType.SEDAN.getCarBodyType() + ", cena: " + CarBodyType.SEDAN.getCarBodyPrice());
+            System.out.println("2. " + CarBodyType.HATCHBACK.getCarBodyType() + ", cena: " + CarBodyType.HATCHBACK.getCarBodyPrice());
+            System.out.println("3. " + CarBodyType.KOMBI.getCarBodyType() + ", cena: " + CarBodyType.KOMBI.getCarBodyPrice());
+            System.out.println("4. " + CarBodyType.PICK_UP.getCarBodyType() + ", cena: " + CarBodyType.PICK_UP.getCarBodyPrice());
+            choosenBodyType = scanner.nextInt();
+
+            switch(choosenBodyType){
+                case 1:
+                    System.out.println("Wybrano " + CarBodyType.SEDAN.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.SEDAN.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarBodyType.HATCHBACK.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.HATCHBACK.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarBodyType.KOMBI.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.KOMBI.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 4:
+                    System.out.println("Wybrano " + CarBodyType.PICK_UP.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.PICK_UP.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+            }
+            chooseParameter();
+
+        } else if (choosenBodyType >= 1 && choosenBodyType <= 4){
+            switch(choosenBodyType){
+                case 1:
+                    userMoney = userMoney + CarBodyType.SEDAN.getCarBodyPrice();
+                    break;
+                case 2:
+                    userMoney = userMoney + CarBodyType.HATCHBACK.getCarBodyPrice();
+                    break;
+                case 3:
+                    userMoney = userMoney + CarBodyType.KOMBI.getCarBodyPrice();
+                    break;
+                case 4:
+                    userMoney = userMoney + CarBodyType.PICK_UP.getCarBodyPrice();
+                    break;
+            }
+
+            System.out.println("Wybierz rodzaj nadwozia:");
+            System.out.println("1. " + CarBodyType.SEDAN.getCarBodyType() + ", cena: " + CarBodyType.SEDAN.getCarBodyPrice());
+            System.out.println("2. " + CarBodyType.HATCHBACK.getCarBodyType() + ", cena: " + CarBodyType.HATCHBACK.getCarBodyPrice());
+            System.out.println("3. " + CarBodyType.KOMBI.getCarBodyType() + ", cena: " + CarBodyType.KOMBI.getCarBodyPrice());
+            System.out.println("4. " + CarBodyType.PICK_UP.getCarBodyType() + ", cena: " + CarBodyType.PICK_UP.getCarBodyPrice());
+            choosenBodyType = scanner.nextInt();
+            switch(choosenBodyType){
+                case 1:
+                    System.out.println("Wybrano " + CarBodyType.SEDAN.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.SEDAN.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarBodyType.HATCHBACK.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.HATCHBACK.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarBodyType.KOMBI.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.KOMBI.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 4:
+                    System.out.println("Wybrano " + CarBodyType.PICK_UP.getCarBodyType());
+                    userMoney = userMoney - CarBodyType.PICK_UP.getCarBodyPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+            }
+            chooseParameter();
+        } else {
+            choosenBodyType = 0;
+            chooseBodyType();
+        }
+        return choosenBodyType;
+    }
+
+    
+    @Override
+    public int chooseColour() {
+        if (choosenColour == 0 ){
+            System.out.println("Wybierz kolor pojazdu:");
+            System.out.println("1. " + CarColour.SILVER.getColourName() + ", cena: " + CarColour.SILVER.getColourPrice());
+            System.out.println("2. " + CarColour.BLACK.getColourName() + ", cena: " + CarColour.BLACK.getColourPrice());
+            System.out.println("3. " + CarColour.WHITE.getColourName() + ", cena: " + CarColour.WHITE.getColourPrice());
+            System.out.println("4. " + CarColour.BLUE.getColourName() + ", cena: " + CarColour.BLUE.getColourPrice());
+            System.out.println("5. " + CarColour.GOLD.getColourName() + ", cena: " + CarColour.GOLD.getColourPrice());
+            choosenColour = scanner.nextInt();
+
+            switch(choosenColour){
+                case 1:
+                    System.out.println("Wybrano " + CarColour.SILVER.getColourName());
+                    userMoney = userMoney - CarColour.SILVER.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarColour.BLACK.getColourName());
+                    userMoney = userMoney - CarColour.BLACK.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarColour.WHITE.getColourName());
+                    userMoney = userMoney - CarColour.WHITE.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 4:
+                    System.out.println("Wybrano " + CarColour.BLUE.getColourName());
+                    userMoney = userMoney - CarColour.BLUE.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 5:
+                    System.out.println("Wybrano " + CarColour.GOLD.getColourName());
+                    userMoney = userMoney - CarColour.GOLD.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+            }
+            chooseParameter();
+
+        } else if (choosenColour >= 1 && choosenColour <= 5){
+            switch(choosenColour){
+                case 1:
+                    userMoney += CarColour.SILVER.getColourPrice();
+                    break;
+                case 2:
+                    userMoney += CarColour.BLACK.getColourPrice();
+                    break;
+                case 3:
+                    userMoney += CarColour.WHITE.getColourPrice();
+                    break;
+                case 4:
+                    userMoney += CarColour.BLUE.getColourPrice();
+                    break;
+                case 5:
+                    userMoney += CarColour.GOLD.getColourPrice();
+                    break;
+            }
+
+            System.out.println("Wybierz kolor pojazdu:");
+            System.out.println("1. " + CarColour.SILVER.getColourName() + ", cena: " + CarColour.SILVER.getColourPrice());
+            System.out.println("2. " + CarColour.BLACK.getColourName() + ", cena: " + CarColour.BLACK.getColourPrice());
+            System.out.println("3. " + CarColour.WHITE.getColourName() + ", cena: " + CarColour.WHITE.getColourPrice());
+            System.out.println("4. " + CarColour.BLUE.getColourName() + ", cena: " + CarColour.BLUE.getColourPrice());
+            System.out.println("5. " + CarColour.GOLD.getColourName() + ", cena: " + CarColour.GOLD.getColourPrice());
+            choosenColour = scanner.nextInt();
+
+            switch(choosenColour){
+                case 1:
+                    System.out.println("Wybrano " + CarColour.SILVER.getColourName());
+                    userMoney -= CarColour.SILVER.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarColour.BLACK.getColourName());
+                    userMoney -= CarColour.BLACK.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarColour.WHITE.getColourName());
+                    userMoney -= CarColour.WHITE.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 4:
+                    System.out.println("Wybrano " + CarColour.BLUE.getColourName());
+                    userMoney -= CarColour.BLUE.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 5:
+                    System.out.println("Wybrano " + CarColour.GOLD.getColourName());
+                    userMoney -= CarColour.GOLD.getColourPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+            }
+            chooseParameter();
+        } else {
+            choosenColour= 0;
+            chooseColour();
+        }
+        return choosenBodyType;
+    }
+
+    
+    @Override
+    public int chooseUpholstery() {
+        if (choosenUpholstery == 0) {
+            System.out.println("Wybierz tapicerkę:");
+            System.out.println("1. " + CarUpholstery.VELOR.getUpholsteryName() + ", cena " + CarUpholstery.VELOR.getUpholsteryPrice());
+            System.out.println("2. " + CarUpholstery.LATHER.getUpholsteryName() + ", cena " + CarUpholstery.LATHER.getUpholsteryPrice());
+            System.out.println("3. " + CarUpholstery.QUILTED_LATHER.getUpholsteryName() + ", cena " + CarUpholstery.QUILTED_LATHER.getUpholsteryPrice());
+            choosenUpholstery = scanner.nextInt();
+
+            switch (choosenUpholstery){
+                case 1:
+                    System.out.println("Wybrano " + CarUpholstery.VELOR.getUpholsteryName());
+                    userMoney -= CarUpholstery.VELOR.getUpholsteryPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarUpholstery.LATHER.getUpholsteryName());
+                    userMoney -= CarUpholstery.LATHER.getUpholsteryPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarUpholstery.QUILTED_LATHER.getUpholsteryName());
+                    userMoney -= CarUpholstery.QUILTED_LATHER.getUpholsteryPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+
+            } chooseParameter();
+
+        } else if (choosenUpholstery >=1 && choosenUpholstery <=3){
+            switch (choosenUpholstery) {
+                case 1:
+                    userMoney += CarUpholstery.VELOR.getUpholsteryPrice();
+                    break;
+                case 2:
+                    userMoney += CarUpholstery.LATHER.getUpholsteryPrice();
+                    break;
+                case 3:
+                    userMoney += CarUpholstery.QUILTED_LATHER.getUpholsteryPrice();
+                    break;
+            }
+            System.out.println("Wybierz tapicerkę:");
+            System.out.println("1. " + CarUpholstery.VELOR.getUpholsteryName() + ", cena " + CarUpholstery.VELOR.getUpholsteryPrice());
+            System.out.println("2. " + CarUpholstery.LATHER.getUpholsteryName() + ", cena " + CarUpholstery.LATHER.getUpholsteryPrice());
+            System.out.println("3. " + CarUpholstery.QUILTED_LATHER.getUpholsteryName() + ", cena " + CarUpholstery.QUILTED_LATHER.getUpholsteryPrice());
+            choosenUpholstery = scanner.nextInt();
+
+            switch (choosenUpholstery){
+                case 1:
+                    System.out.println("Wybrano " + CarUpholstery.VELOR.getUpholsteryName());
+                    userMoney -= CarUpholstery.VELOR.getUpholsteryPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 2:
+                    System.out.println("Wybrano " + CarUpholstery.LATHER.getUpholsteryName());
+                    userMoney -= CarUpholstery.LATHER.getUpholsteryPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                case 3:
+                    System.out.println("Wybrano " + CarUpholstery.QUILTED_LATHER.getUpholsteryName());
+                    userMoney -= CarUpholstery.QUILTED_LATHER.getUpholsteryPrice();
+                    System.out.println("Pozostałe środki: " + userMoney + "zł");
+                    break;
+                default:
+                    System.out.println("Nie wybrano parametru, powrót do menu wyboru parametru.");
+                    chooseParameter();
+
+            } chooseParameter();
+
+        } else {
+            choosenUpholstery = 0;
+            chooseUpholstery();
+        } return choosenUpholstery;
+    }
+}
+
+
+enum StandardCars {
+    CORSA("Opel Corsa", 50000),
+    ASTRA("Opel Astra", 60000),
+    OMEGA("Opel Omega", 70000),
+    INSIGNIA("Opel Insignia", 90000);
+
+    private String carName;
+    private int carPrice;
+
+    private StandardCars (String carName, int carPrice){
+        this.carName = carName;
+        this.carPrice = carPrice;
+    }
+
+    public int getCarPrice(){
+        return this.carPrice;
+    }
+
+    public String getCarName(){
+        return this.carName;
+    }
+
+}
+
+
+enum CarUpholstery {
+    VELOR("Tapicerka welurowa",0),
+    LATHER("Tapicerka skórzana",1000),
+    QUILTED_LATHER("Tapicerka skórzana pikowana",2000);
+
+    private String upholsteryName;
+    private int upholsteryPrice;
+
+    CarUpholstery (String upholsteryName, int upholsteryPrice){
+        this.upholsteryName = upholsteryName;
+        this.upholsteryPrice = upholsteryPrice;
+    }
+
+    public int getUpholsteryPrice(){
+        return this.upholsteryPrice;
+    }
+
+    public String getUpholsteryName() {
+        return this.upholsteryName;
+    }
+}
+
+enum CarBodyType {
+    SEDAN("Sedan",0),
+    HATCHBACK("Hatchback",1000),
+    KOMBI("Kombi",1000),
+    PICK_UP("Pick up", 2000);
+
+    private String carBodyType;
+    private int carBodyPrice;
+
+    CarBodyType(String carBodyType, int carBodyPrice) {
+        this.carBodyType = carBodyType;
+        this.carBodyPrice = carBodyPrice;
+    }
+
+    public int getCarBodyPrice() {
+        return this.carBodyPrice;
+    }
+
+    public String getCarBodyType() {
+        return this.carBodyType;
+    }
+
+}
+
+enum CarColour {
+    SILVER("Srebrny",0),
+    BLACK("Czarny",0),
+    WHITE("Biały",1000),
+    BLUE("Niebieski",2000),
+    GOLD("Złoty",4000);
+
+    private String colourName;
+    private int carColourPrice;
+
+    CarColour (String colourName, int carColourPrice){
+        this.colourName = colourName;
+        this.carColourPrice = carColourPrice;
+    }
+
+    public int getColourPrice() {
+        return this.carColourPrice;
+    }
+
+    public String getColourName() {
+        return this.colourName;
+    }
+}
+
+
+enum CarEngineType {
+    GASOLINE("Silnik benzynowy", 0),
+    DIESEL("Silnik Diesel'a",10000),
+    HYBRID("Napęd Hybrydowy",15000);
+
+    private int enginePrice;
+    private String engineType;
+
+    CarEngineType (String engineType, int enginePrice){
+        this.engineType = engineType;
+        this.enginePrice = enginePrice;
+    }
+
+    public int getEnginePrice(){
+        return this.enginePrice;
+    }
+
+    public String getEngineType(){
+        return this.engineType;
+    }
+}
+
+interface Operations {
+    double setUserMoney();
+    void showStandardCars();
+    void chooseCar();
+    void chooseParameter();
+    int chooseEngine();
+    int chooseBodyType();
+    int chooseColour();
+    int chooseUpholstery();
+    void presentCar();
+}
